@@ -1,132 +1,164 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
-function Booking({ booking, setBooking }) {
-  const [confirmation, setConfirmation] = useState(null);
+const rides = [
+  { name: "Bike Ride", price: 50 },
+  { name: "City Cab", price: 150 },
+  { name: "Family Van", price: 400 },
+];
 
-  const formData = booking || {
+function Booking({ selectedRide, setSelectedRide }) {
+  const [form, setForm] = useState({
     name: "",
     pickup: "",
     destination: "",
-    vehicle: "Bike Ride",
-    price: 50,
-  };
+  });
+
+  const [confirmation, setConfirmation] = useState("");
+
+  const currentRide =
+    rides.find((ride) => ride.name === selectedRide?.name) || rides[0];
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    const prices = {
-      "Bike Ride": 50,
-      "City Cab": 150,
-      "Family Van": 400,
-    };
-
-    setBooking({
-      ...formData,
+    setForm((previous) => ({
+      ...previous,
       [name]: value,
-      ...(name === "vehicle" ? { price: prices[value] } : {}),
-    });
+    }));
 
-    setConfirmation(null);
+    setConfirmation("");
+  }
+
+  function handleRideChange(event) {
+    const ride = rides.find((item) => item.name === event.target.value);
+
+    if (ride) {
+      setSelectedRide(ride);
+    }
+
+    setConfirmation("");
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    setConfirmation({
-      ...formData,
-      bookingId: "GR" + Date.now().toString().slice(-6),
-    });
-  }
+    const reference = `GR${Date.now().toString().slice(-6)}`;
 
-  if (confirmation) {
-    return (
-      <section className="page">
-        <div className="confirmation-card">
-          <div className="confirmation-icon">✓</div>
-          <p className="eyebrow">BOOKING RECEIVED</p>
-          <h1 className="section-title">Thank you, {confirmation.name}!</h1>
-
-          <p className="section-subtitle">
-            Your demo booking has been recorded on this page.
-            No actual vehicle has been dispatched.
-          </p>
-
-          <div className="confirmation-details">
-            <p><span>Booking reference</span><strong>{confirmation.bookingId}</strong></p>
-            <p><span>Ride</span><strong>{confirmation.vehicle}</strong></p>
-            <p><span>Pickup</span><strong>{confirmation.pickup}</strong></p>
-            <p><span>Destination</span><strong>{confirmation.destination}</strong></p>
-            <p><span>Displayed fare</span><strong>₹{confirmation.price}</strong></p>
-          </div>
-
-          <Link to="/" className="shop-button">
-            Back to Home
-          </Link>
-        </div>
-      </section>
+    setConfirmation(
+      `Demo booking confirmed! Reference: ${reference}. ` +
+      `Ride: ${currentRide.name}. Sample fare: ₹${currentRide.price}. ` +
+      `No real vehicle has been booked or dispatched.`
     );
   }
 
   return (
-    <section className="page">
-      <p className="eyebrow">LET'S GET YOU MOVING</p>
-      <h1 className="section-title">Book Your Ride</h1>
-      <p className="section-subtitle">
-        Enter your journey details to create a demo booking.
-      </p>
+    <section className="section page-section">
+      <div className="container booking-layout">
+        <div className="booking-intro">
+          <span className="eyebrow">BOOK YOUR RIDE</span>
+          <h1>Your next journey starts here.</h1>
+          <p>
+            Enter your details, select a vehicle, and review its sample fare.
+          </p>
 
-      <form className="contact-form booking-form" onSubmit={handleSubmit}>
-        <label htmlFor="name">Passenger Name</label>
-        <input
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Enter your full name"
-          required
-        />
+          <div className="booking-benefit">
+            <span>01</span>
+            <div>
+              <strong>Enter your route</strong>
+              <p>Add your pickup and destination.</p>
+            </div>
+          </div>
 
-        <label htmlFor="pickup">Pickup Location</label>
-        <input
-          id="pickup"
-          name="pickup"
-          value={formData.pickup}
-          onChange={handleChange}
-          placeholder="Where should we pick you up?"
-          required
-        />
+          <div className="booking-benefit">
+            <span>02</span>
+            <div>
+              <strong>Select a vehicle</strong>
+              <p>Choose the ride that fits your trip.</p>
+            </div>
+          </div>
 
-        <label htmlFor="destination">Destination</label>
-        <input
-          id="destination"
-          name="destination"
-          value={formData.destination}
-          onChange={handleChange}
-          placeholder="Where would you like to go?"
-          required
-        />
-
-        <label htmlFor="vehicle">Choose Your Ride</label>
-        <select
-          id="vehicle"
-          name="vehicle"
-          value={formData.vehicle}
-          onChange={handleChange}
-        >
-          <option value="Bike Ride">Bike Ride — ₹50</option>
-          <option value="City Cab">City Cab — ₹150</option>
-          <option value="Family Van">Family Van — ₹400</option>
-        </select>
-
-        <div className="fare-summary">
-          <span>Displayed demo fare</span>
-          <strong>₹{formData.price}</strong>
+          <div className="booking-benefit">
+            <span>03</span>
+            <div>
+              <strong>Review your demo booking</strong>
+              <p>See a confirmation on this page.</p>
+            </div>
+          </div>
         </div>
 
-        <button type="submit">Confirm Demo Booking →</button>
-      </form>
+        <div className="booking-card">
+          <h2>Ride details</h2>
+          <p className="form-subtitle">Fill in the details below.</p>
+
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Your name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Enter your full name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="pickup">Pickup location</label>
+            <input
+              id="pickup"
+              name="pickup"
+              type="text"
+              placeholder="Where should we pick you up?"
+              value={form.pickup}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="destination">Destination</label>
+            <input
+              id="destination"
+              name="destination"
+              type="text"
+              placeholder="Where are you going?"
+              value={form.destination}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="vehicle">Choose your ride</label>
+            <select
+              id="vehicle"
+              value={currentRide.name}
+              onChange={handleRideChange}
+            >
+              {rides.map((ride) => (
+                <option key={ride.name} value={ride.name}>
+                  {ride.name} — ₹{ride.price}
+                </option>
+              ))}
+            </select>
+
+            <div className="fare-box">
+              <span>Sample fare</span>
+              <strong>₹{currentRide.price}</strong>
+            </div>
+
+            <button type="submit" className="btn btn-primary full-width">
+              Confirm Demo Booking →
+            </button>
+          </form>
+
+          {confirmation && (
+            <div className="success-message" role="status">
+              {confirmation}
+            </div>
+          )}
+
+          <p className="notice">
+            Demo only. This form does not send data to a server or book a real
+            ride.
+          </p>
+        </div>
+      </div>
     </section>
   );
 }

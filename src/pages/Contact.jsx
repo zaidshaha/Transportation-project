@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 function Contact() {
@@ -10,102 +9,103 @@ function Contact() {
 
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    setSubmitted(true);
-    setForm({ name: "", email: "", message: "" });
-  }
-
   function handleChange(event) {
     setForm({
       ...form,
       [event.target.name]: event.target.value,
     });
+
     setSubmitted(false);
   }
 
-  return (
-    <section className="page">
-      <p className="eyebrow">WE'RE HERE TO HELP</p>
-      <h1 className="section-title">Contact GoRide</h1>
-      <p className="section-subtitle">
-        Questions about your journey? Send us a message.
-      </p>
+  function handleSubmit(event) {
+    event.preventDefault();
+    setSubmitted(true);
+  }
 
-      <div className="contact-layout">
+  return (
+    <section className="section page-section">
+      <div className="container contact-layout">
         <div className="contact-info">
-          <h2>Let's talk about your journey.</h2>
+          <span className="eyebrow">CONTACT US</span>
+          <h1>We're here to help.</h1>
           <p>
-            We're happy to hear your feedback and help with
-            questions about using the GoRide demo website.
+            Have a question about the GoRide demo? Use the contact form to
+            try out the interface.
           </p>
 
-          <div className="contact-info-item">
-            <span>📍</span>
+          <div className="contact-detail">
+            <span>✉️</span>
             <div>
-              <strong>Our Service</strong>
-              <p>Convenient city travel</p>
+              <strong>Email</strong>
+              <p>support@goride.example</p>
             </div>
           </div>
 
-          <div className="contact-info-item">
+          <div className="contact-detail">
             <span>🕒</span>
             <div>
-              <strong>Booking Information</strong>
-              <p>Explore available ride options online</p>
-            </div>
-          </div>
-
-          <div className="contact-info-item">
-            <span>💬</span>
-            <div>
-              <strong>Customer Feedback</strong>
-              <p>Share your questions and suggestions</p>
+              <strong>Availability</strong>
+              <p>Demo website — available online</p>
             </div>
           </div>
         </div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <div className="booking-card">
+          <h2>Send a message</h2>
+          <p className="form-subtitle">
+            Enter your details to test the form.
+          </p>
+
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="contact-name">Your name</label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              placeholder="Your name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="contact-email">Email address</label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              placeholder="How can we help?"
+              rows="5"
+              value={form.message}
+              onChange={handleChange}
+              required
+            />
+
+            <button type="submit" className="btn btn-primary full-width">
+              Submit Demo Message →
+            </button>
+          </form>
+
           {submitted && (
-            <p className="success-message" role="status">
-              Thank you! Your message was accepted by the demo form.
-            </p>
+            <div className="success-message" role="status">
+              Your demo message was submitted on this page. No email was sent.
+            </div>
           )}
 
-          <label htmlFor="name">Your Name</label>
-          <input
-            id="name"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder="Enter your name"
-            required
-          />
-
-          <label htmlFor="email">Email Address</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            required
-          />
-
-          <label htmlFor="message">Your Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            value={form.message}
-            onChange={handleChange}
-            placeholder="Write your message..."
-            required
-          />
-
-          <button type="submit">Send Message →</button>
-        </form>
+          <p className="notice">
+            This is a frontend demonstration. Messages are not stored or sent.
+          </p>
+        </div>
       </div>
     </section>
   );

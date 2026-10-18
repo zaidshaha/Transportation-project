@@ -1,23 +1,24 @@
-
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function Navbar() {
   return (
     <header className="navbar">
-      <Link to="/" className="logo">
-        Go<span>Ride</span>
-      </Link>
+      <div className="container nav-content">
+        <Link to="/" className="logo">
+          Go<span>Ride</span>
+        </Link>
 
-      <nav className="nav-links">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/services">Services</NavLink>
-        <NavLink to="/booking">Book a Ride</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-      </nav>
+        <nav className="nav-links">
+          <NavLink to="/" end>Home</NavLink>
+          <NavLink to="/services">Services</NavLink>
+          <NavLink to="/booking">Book a Ride</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
+        </nav>
 
-      <Link to="/services" className="nav-button">
-        Book Now
-      </Link>
+        <Link to="/booking" className="btn btn-primary nav-button">
+          Book Now
+        </Link>
+      </div>
     </header>
   );
 }

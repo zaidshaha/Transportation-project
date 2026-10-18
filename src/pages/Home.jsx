@@ -1,99 +1,92 @@
-
 import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <>
       <section className="hero">
-        <div className="hero-content">
-          <span className="hero-tag">YOUR JOURNEY STARTS HERE</span>
+        <div className="container hero-content">
+          <div className="hero-text">
+            <span className="eyebrow">YOUR CITY. YOUR RIDE.</span>
 
-          <h1>
-            Every journey.
-            <br />
-            <span>Made easier.</span>
-          </h1>
+            <h1>
+              Every journey.
+              <br />
+              <span>Made easier.</span>
+            </h1>
 
-          <p>
-            Book your next ride with GoRide. From quick city
-            trips to comfortable family journeys, getting
-            there has never been easier.
-          </p>
+            <p>
+              Book a comfortable, affordable ride for your everyday
+              journeys. GoRide helps make getting around simple.
+            </p>
 
-          <div className="hero-actions">
-            <Link to="/services" className="shop-button">
-              Explore Rides →
-            </Link>
+            <div className="hero-actions">
+              <Link to="/booking" className="btn btn-primary">
+                Book Your Ride →
+              </Link>
 
-            <Link to="/contact" className="secondary-link">
-              Contact Us
-            </Link>
-          </div>
+              <Link to="/services" className="btn btn-light">
+                Explore Services
+              </Link>
+            </div>
 
-          <div className="hero-features">
-            <span>✓ Easy Booking</span>
-            <span>✓ Comfortable Rides</span>
-            <span>✓ Transparent Prices</span>
-          </div>
-        </div>
-
-        <div className="hero-visual">
-          <div className="hero-circle"></div>
-          <div className="hero-car">🚘</div>
-
-          <div className="floating-card card-top">
-            <span>📍</span>
-            <div>
-              <strong>Your destination</strong>
-              <p>Just a ride away</p>
+            <div className="hero-note">
+              <span>✓</span> Simple booking
+              <span>✓</span> Clear pricing
             </div>
           </div>
 
-          <div className="floating-card card-bottom">
-            <span>✓</span>
-            <div>
-              <strong>Simple booking</strong>
-              <p>Plan your next journey</p>
+          <div className="hero-visual">
+            <div className="visual-circle"></div>
+            <div className="hero-car">🚕</div>
+            <div className="floating-card">
+              <span className="status-dot"></span>
+              <div>
+                <strong>Your ride, your way</strong>
+                <p>Choose a vehicle that suits you</p>
+              </div>
             </div>
+            <div className="hero-label">GoRide • Let's go!</div>
           </div>
         </div>
       </section>
 
-      <section className="page">
-        <p className="eyebrow">WHY GORIDE?</p>
-        <h2 className="section-title">Travel your way</h2>
-        <p className="section-subtitle">
-          Choose a ride that fits your journey and your budget.
-        </p>
-
-        <div className="feature-grid">
-          <article className="feature-card">
-            <div className="feature-icon">⚡</div>
-            <h3>Easy Booking</h3>
-            <p>Choose your ride and enter your journey details in minutes.</p>
-          </article>
-
-          <article className="feature-card">
-            <div className="feature-icon">🛡️</div>
-            <h3>Comfortable Travel</h3>
-            <p>Find a travel option that suits your everyday needs.</p>
-          </article>
-
-          <article className="feature-card">
-            <div className="feature-icon">💰</div>
-            <h3>Clear Pricing</h3>
-            <p>See the displayed ride price before submitting your booking.</p>
-          </article>
-        </div>
-
-        <div className="home-cta">
-          <div>
-            <h2>Where would you like to go?</h2>
-            <p>Your next journey begins with a simple booking.</p>
+      <section className="features section">
+        <div className="container">
+          <div className="section-heading">
+            <span className="eyebrow">WHY GORIDE?</span>
+            <h2>Travel without the hassle</h2>
+            <p>A simpler way to plan your next journey.</p>
           </div>
-          <Link to="/services" className="shop-button">
-            Book Your Ride →
-          </Link>
+
+          <div className="feature-grid">
+            <article className="feature-card">
+              <div className="feature-icon">⚡</div>
+              <h3>Easy Booking</h3>
+              <p>Enter your journey details and select your ride.</p>
+            </article>
+
+            <article className="feature-card">
+              <div className="feature-icon">₹</div>
+              <h3>Clear Prices</h3>
+              <p>See the listed demo fare before submitting your booking.</p>
+            </article>
+
+            <article className="feature-card">
+              <div className="feature-icon">🚘</div>
+              <h3>Ride Options</h3>
+              <p>Choose a bike, city cab, or family van.</p>
+            </article>
+          </div>
+
+          <div className="home-cta">
+            <div>
+              <h2>Ready for your next journey?</h2>
+              <p>Choose your ride and enter your trip details.</p>
+            </div>
+            <Link to="/booking" className="btn btn-primary">
+              Get Started →
+            </Link>
+          </div>
         </div>
       </section>
     </>

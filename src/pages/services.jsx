@@ -1,75 +1,76 @@
+import { useNavigate } from "react-router-dom";
 
 const services = [
   {
-    id: 1,
     name: "Bike Ride",
     price: 50,
     icon: "🏍️",
-    description: "A quick and convenient option for solo city travel.",
-    features: ["Best for one passenger", "Quick city journeys", "Budget-friendly"],
+    description: "An affordable option for quick solo trips around the city.",
+    tag: "QUICK TRIPS",
   },
   {
-    id: 2,
     name: "City Cab",
     price: 150,
     icon: "🚕",
-    description: "A comfortable ride for everyday travel around the city.",
-    features: ["Comfortable seating", "Daily city travel", "Convenient journeys"],
+    description: "A comfortable option for everyday city journeys.",
+    tag: "EVERYDAY COMFORT",
   },
   {
-    id: 3,
     name: "Family Van",
     price: 400,
     icon: "🚐",
-    description: "Extra room for family outings and group journeys.",
-    features: ["More passenger space", "Family outings", "Group travel"],
+    description: "Extra space for families, friends, and group travel.",
+    tag: "MORE SPACE",
   },
 ];
 
 function Services({ onBook }) {
+  const navigate = useNavigate();
+
+  function chooseRide(service) {
+    onBook(service);
+    navigate("/booking");
+  }
+
   return (
-    <section className="page">
-      <p className="eyebrow">OUR RIDE OPTIONS</p>
-      <h1 className="section-title">Choose Your Ride</h1>
-      <p className="section-subtitle">
-        Find the right ride for your next destination.
-      </p>
+    <section className="section page-section">
+      <div className="container">
+        <div className="section-heading">
+          <span className="eyebrow">OUR SERVICES</span>
+          <h1>Find your perfect ride</h1>
+          <p>Choose the vehicle that works best for your journey.</p>
+        </div>
 
-      <div className="service-grid">
-        {services.map((service) => (
-          <article className="service-card" key={service.id}>
-            <div className="service-icon">{service.icon}</div>
+        <div className="service-grid">
+          {services.map((service) => (
+            <article className="service-card" key={service.name}>
+              <span className="service-tag">{service.tag}</span>
 
-            <h2>{service.name}</h2>
-            <p className="service-description">{service.description}</p>
+              <div className="service-icon">{service.icon}</div>
 
-            <ul>
-              {service.features.map((feature) => (
-                <li key={feature}>✓ {feature}</li>
-              ))}
-            </ul>
+              <h2>{service.name}</h2>
+              <p>{service.description}</p>
 
-            <div className="service-bottom">
-              <div>
-                <span className="price-label">Starting price</span>
-                <strong className="service-price">₹{service.price}</strong>
+              <div className="service-price">
+                <strong>₹{service.price}</strong>
+                <span>demo fare</span>
               </div>
 
               <button
-                className="shop-button"
-                onClick={() => onBook(service)}
+                type="button"
+                className="btn btn-primary full-width"
+                onClick={() => chooseRide(service)}
               >
                 Select Ride →
               </button>
-            </div>
-          </article>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
 
-      <p className="pricing-note">
-        Prices shown are demonstration prices for this project.
-        Actual fares may vary by distance and other factors.
-      </p>
+        <p className="notice">
+          Prices are sample fares for this demonstration, not live quotes.
+        </p>
+      </div>
     </section>
   );
 }

@@ -1,29 +1,18 @@
-
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Booking from "./pages/Booking";
-import Contact from "./pages/Contact";
+import Home from "./pages/Home.jsx";
+import Services from "./pages/Services.jsx";
+import Booking from "./pages/Booking.jsx";
+import Contact from "./pages/Contact.jsx";
 
 import "./App.css";
 
 function App() {
-  const [booking, setBooking] = useState(null);
-
-  function selectService(service) {
-    setBooking({
-      name: "",
-      pickup: "",
-      destination: "",
-      vehicle: service.name,
-      price: service.price,
-    });
-  }
+  const [selectedRide, setSelectedRide] = useState(null);
 
   return (
     <>
@@ -35,15 +24,15 @@ function App() {
 
           <Route
             path="/services"
-            element={<Services onBook={selectService} />}
+            element={<Services onBook={setSelectedRide} />}
           />
 
           <Route
             path="/booking"
             element={
               <Booking
-                booking={booking}
-                setBooking={setBooking}
+                selectedRide={selectedRide}
+                setSelectedRide={setSelectedRide}
               />
             }
           />
