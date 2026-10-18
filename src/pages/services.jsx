@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const services = [
+const Services = [
   {
     name: "Bike Ride",
     icon: "🏍️",
