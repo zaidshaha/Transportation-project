@@ -1,55 +1,47 @@
-import { Link } from "react-router-dom";
 
-const Services = [
+const services = [
   {
+    id: 1,
     name: "Bike Ride",
-    icon: "🏍️",
     price: 50,
-    description:
-      "A convenient option for short city journeys and solo travel.",
-    features: ["Solo travel", "Short trips", "Budget-friendly"],
+    icon: "🏍️",
+    description: "A quick and convenient option for solo city travel.",
+    features: ["Best for one passenger", "Quick city journeys", "Budget-friendly"],
   },
   {
+    id: 2,
     name: "City Cab",
-    icon: "🚕",
     price: 150,
-    description:
-      "A comfortable ride for everyday travel around the city.",
-    features: ["Comfortable ride", "City travel", "Luggage space"],
+    icon: "🚕",
+    description: "A comfortable ride for everyday travel around the city.",
+    features: ["Comfortable seating", "Daily city travel", "Convenient journeys"],
   },
   {
+    id: 3,
     name: "Family Van",
-    icon: "🚐",
     price: 400,
-    description:
-      "A spacious option for families and group journeys.",
-    features: ["Extra space", "Group travel", "Family trips"],
+    icon: "🚐",
+    description: "Extra room for family outings and group journeys.",
+    features: ["More passenger space", "Family outings", "Group travel"],
   },
 ];
 
-export default function Services() {
+function Services({ onBook }) {
   return (
-    <section className="section services-page">
-      <div className="section-heading">
-        <p className="tagline">OUR TRANSPORT OPTIONS</p>
-        <h1>Choose your ride.</h1>
-        <p>
-          Find a transportation option that suits your journey.
-        </p>
-      </div>
+    <section className="page">
+      <p className="eyebrow">OUR RIDE OPTIONS</p>
+      <h1 className="section-title">Choose Your Ride</h1>
+      <p className="section-subtitle">
+        Find the right ride for your next destination.
+      </p>
 
       <div className="service-grid">
         {services.map((service) => (
-          <article className="service-card" key={service.name}>
-            <div className="service-emoji">{service.icon}</div>
+          <article className="service-card" key={service.id}>
+            <div className="service-icon">{service.icon}</div>
 
             <h2>{service.name}</h2>
-            <p>{service.description}</p>
-
-            <div className="service-price">
-              <span>Sample price from</span>
-              <strong>₹{service.price}</strong>
-            </div>
+            <p className="service-description">{service.description}</p>
 
             <ul>
               {service.features.map((feature) => (
@@ -57,19 +49,29 @@ export default function Services() {
               ))}
             </ul>
 
-            <Link
-              to={`/booking?vehicle=${encodeURIComponent(service.name)}`}
-              className="primary-button service-button"
-            >
-              Book This Ride →
-            </Link>
+            <div className="service-bottom">
+              <div>
+                <span className="price-label">Starting price</span>
+                <strong className="service-price">₹{service.price}</strong>
+              </div>
+
+              <button
+                className="shop-button"
+                onClick={() => onBook(service)}
+              >
+                Select Ride →
+              </button>
+            </div>
           </article>
         ))}
       </div>
 
-      <p className="demo-note">
-        Prices are illustrative demo values, not live fare quotes.
+      <p className="pricing-note">
+        Prices shown are demonstration prices for this project.
+        Actual fares may vary by distance and other factors.
       </p>
     </section>
   );
 }
+
+export default Services;
